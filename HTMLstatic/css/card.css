@@ -1,0 +1,26 @@
+.card-description {
+    margin: 20px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-description dt {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 12px;
+    font-size: 1.1em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.card-description dd {
+    margin-left: 20px;
+    padding: 8px 0;
+    color: #555;
+}
