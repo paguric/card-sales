@@ -1,0 +1,7 @@
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/CardgamesApplication.java
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/controller/ApiCardController.java
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/controller/CardController.java
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/model/Card.java
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/model/CardCondition.java
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/model/CardType.java
+/media/lapo225/cartella-condivisa/as24-25-sp/applicazioni-web/pernisi/src/main/java/ch/supsi/web/cardgames/service/CardService.java

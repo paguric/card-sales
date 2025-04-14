@@ -1,26 +1,89 @@
+/* Stile della descrizione della carta */
 .card-description {
-    margin: 20px 0;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 25px;
     width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 700px;
+    margin: 20px auto;
+    font-family: 'Inter', 'Arial', sans-serif;
 }
 
+/* Elementi dt */
 .card-description dt {
-    font-weight: bold;
-    color: #2c3e50;
-    margin-top: 12px;
-    font-size: 1.1em;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1a2a44;
+    margin-top: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e4e8;
 }
 
+/* Elementi dd */
 .card-description dd {
-    margin-left: 20px;
-    padding: 8px 0;
+    margin-left: 0;
+    padding: 10px 0;
+    font-size: 1rem;
     color: #555;
+}
+
+/* Immagine della carta */
+main img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titolo della carta */
+main h1 {
+    font-size: 1.8rem;
+    color: #1a2a44;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Reattività */
+@media (max-width: 768px) {
+    .card-description {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .card-description dt {
+        font-size: 1rem;
+    }
+
+    .card-description dd {
+        font-size: 0.95rem;
+    }
+
+    main h1 {
+        font-size: 1.5rem;
+    }
+
+    main img {
+        margin: 15px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-description {
+        padding: 15px;
+    }
+
+    .card-description dt {
+        font-size: 0.9rem;
+    }
+
+    .card-description dd {
+        font-size: 0.9rem;
+    }
+
+    main h1 {
+        font-size: 1.3rem;
+    }
 }

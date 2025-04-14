@@ -36,7 +36,7 @@ function validateFirstName() {
     if (existingError) {
         existingError.remove();
     }
-    
+
     // Name contains digits or other special charachters
     if (nameRe.test(this.value)) {
         this.style.color = "red";
@@ -45,6 +45,7 @@ function validateFirstName() {
         errorMessage.style.color = "red";
         errorMessage.textContent = "Error, invalid characters detected";
         this.parentNode.insertBefore(errorMessage, this.nextSibling);
+        validFirstNameInput = false;
     } else {
         this.style.color = "black";
         validFirstNameInput = true;
@@ -56,7 +57,7 @@ function validateLastName() {
     if (existingError) {
         existingError.remove();
     }
-    
+
     // Name contains digits or other special charachters
     if (nameRe.test(this.value)) {
         this.style.color = "red";
@@ -65,6 +66,7 @@ function validateLastName() {
         errorMessage.style.color = "red";
         errorMessage.textContent = "Error, invalid characters detected";
         this.parentNode.insertBefore(errorMessage, this.nextSibling);
+        validLastNameInput = false;
     } else {
         this.style.color = "black";
         validLastNameInput = true;
@@ -72,19 +74,20 @@ function validateLastName() {
 }
 
 function validateUsername() {
-    const existingError = document.getElementById("span");
+    const existingError = document.getElementById("usernameError");
     if (existingError) {
         existingError.remove();
     }
-    
+
     // Username contains invalid symbols
     if (usernameRe.test(this.value)) {
         this.style.color = "red";
-        const errorMessage = document.createElement("usernameError");
+        const errorMessage = document.createElement("span");
         errorMessage.id = "usernameError";
         errorMessage.style.color = "red";
         errorMessage.textContent = "Error, invalid characters detected";
         this.parentNode.insertBefore(errorMessage, this.nextSibling);
+        validUsernameInput = false;
     } else {
         this.style.color = "black";
         validUsernameInput = true;
@@ -96,7 +99,7 @@ function validatePassword() {
     if (existingError) {
         existingError.remove();
     }
-    
+
     if (usernameRe.test(this.value) || this.value.length <= 8 || this.value.length >= 15) {
         this.style.color = "red";
         const errorMessage = document.createElement("span");
@@ -104,6 +107,7 @@ function validatePassword() {
         errorMessage.style.color = "red";
         errorMessage.textContent = "Error, invalid password";
         this.parentNode.insertBefore(errorMessage, this.nextSibling);
+        validPasswordInput = false;
     } else {
         this.style.color = "black";
         validPasswordInput = true;
@@ -115,7 +119,7 @@ function validateConfirmPassword() {
     if (existingError) {
         existingError.remove();
     }
-    
+
     if (this.value !== passwordInput.value) {
         this.style.color = "red";
         const errorMessage = document.createElement("span");
@@ -123,6 +127,7 @@ function validateConfirmPassword() {
         errorMessage.style.color = "red";
         errorMessage.textContent = "Error, confirm doesn't match";
         this.parentNode.insertBefore(errorMessage, this.nextSibling);
+        validConfirmPasswordInput = false;
     } else {
         this.style.color = "black";
         validConfirmPasswordInput = true;
@@ -142,7 +147,8 @@ function validateForm() {
         confirmButton.textContent = "Create Account";
         confirmButton.id = "confirmButton";
         confirmButton.addEventListener("click", () => {
-            alert("Account creation in progress");
+            alert("Account creation in progress.");
+            window.location.href = "/";
         });
         form.appendChild(confirmButton);
     } else {

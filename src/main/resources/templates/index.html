@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/images/icon.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Home</title>
+</head>
+<body>
+<header>
+    <a href="/static">
+        <img src="/images/logo.png" alt="Card Sales" width="100" height="100">
+    </a>
+    <h1>Card Sales</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/card/new">Post Announcement</a></li>
+        <li><a href="/register">User Registration</a></li>
+        <li><a href="/card/1">Carta 1</a></li>
+        <li><a href="/card/2">Carta 2</a></li>
+        <li><a href="/card/3">Carta 3</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <main>
+        <h2>Latest sales</h2>
+        <div class="cards-container">
+            <div th:each="card : ${cards}" class="card">
+                <h3 class="card-title" th:text="${card.name}"></h3>
+                <div class="card-content">
+                    <p><strong>Descrizione:</strong> <span th:text="${card.description}"></span></p>
+                    <p><strong>Autore:</strong> <span th:text="${card.author}"></span></p>
+                    <p><strong>Data:</strong> <span th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></span></p>
+                    <p><strong>Condizione:</strong> <span th:text="${card.condition}"></span></p>
+                    <p><strong>Tipo:</strong> <span th:text="${card.cardType}"></span></p>
+                    <a th:href="@{/card/{id}(id=${card.id})}">Dettagli</a>
+                    <a th:href="@{/card/{id}/edit(id=${card.id})}">Modifica</a>
+                    <a th:href="@{/card/{id}/delete(id=${card.id})}" onclick="return confirm('Sei sicuro di voler eliminare questa carta?')">Elimina</a>
+                </div>
+            </div>
+            <div th:if="${cards.isEmpty()}">
+                <p>Nessuna carta disponibile.</p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+        <h3>Side bar (latest sales / news)</h3>
+        <ul>
+            <li th:each="card : ${cards}" th:text="${card.name}"></li>
+        </ul>
+    </aside>
+</div>
+
+<footer>
+    <h6>Lapo card shop - Copyleft CC-by 2025 by Lapo</h6>
+</footer>
+</body>
+</html>
