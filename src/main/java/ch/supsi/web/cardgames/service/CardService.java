@@ -3,6 +3,7 @@ package ch.supsi.web.cardgames.service;
 import ch.supsi.web.cardgames.model.Card;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,10 @@ public class CardService {
     public Card saveCard(Card card) {
         if (card.getId() == null) {
             card.setId(idGenerator.getAndIncrement());
-            cards.add(card);
         } else {
             cards.removeIf(c -> c.getId().equals(card.getId()));
-            cards.add(card);
         }
+        cards.add(card);
         return card;
     }
 

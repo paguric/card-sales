@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class CardController {
@@ -40,7 +43,8 @@ public class CardController {
     }
 
     @PostMapping("/card/new")
-    public String createCard(@ModelAttribute Card card) {
+    public String createCard(@ModelAttribute Card card, @RequestParam("file") MultipartFile file) throws IOException {
+        card.setAttachment(file.getBytes());
         cardService.saveCard(card);
         return "redirect:/";
     }
