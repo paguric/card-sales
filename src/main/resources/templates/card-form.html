@@ -29,7 +29,7 @@
 
 <main>
     <h1 th:text="${card.id} ? 'Modifica Carta' : 'Crea Nuova Carta'"></h1>
-    <form th:action="${card.id} ? @{/card/{id}/edit(id=${card.id})} : @{/card/new}" th:object="${card}" method="post">
+    <form th:action="${card.id} ? @{/card/{id}/edit(id=${card.id})} : @{/card/new}" th:object="${card}" method="post" enctype="multipart/form-data">
         <label for="name">Nome Carta:</label>
         <input type="text" id="name" th:field="*{name}" required>
 
@@ -53,6 +53,9 @@
 
         <label for="description">Descrizione Annuncio:</label>
         <textarea id="description" th:field="*{description}" rows="5" cols="50" required></textarea>
+
+        <label for="image"> Carica Immagine:</label>
+        <input type="file" id="image" th:field="*{attachment}" required>
 
         <input type="submit" th:value="${card.id} ? 'Aggiorna Carta' : 'Crea Carta'">
     </form>
