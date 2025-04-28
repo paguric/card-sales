@@ -3,12 +3,17 @@ package ch.supsi.web.cardgames.controller;
 import ch.supsi.web.cardgames.model.Card;
 import ch.supsi.web.cardgames.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 public class CardController {
@@ -34,6 +39,29 @@ public class CardController {
                     return "card-detail";
                 })
                 .orElse("redirect:/");
+    }
+
+    @GetMapping("/card/{id}/image")
+    public ResponseEntity<Resource> getCardImage(@PathVariable Long id) {
+        Optional<Card> cardOptional = cardService.getCardById(id);
+
+        if (!cardOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] image = cardOptional.get().getAttachment();
+
+        if (image == null || image.length == 0) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ByteArrayResource resource = new ByteArrayResource(image);
+
+        MediaType contentType = MediaType.IMAGE_JPEG;
+
+        return ResponseEntity.ok()
+                .contentType(contentType)
+                .body(resource);
     }
 
     @GetMapping("/card/new")

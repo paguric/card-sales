@@ -28,7 +28,7 @@
 
 <main>
     <h1 th:text="${card.name}"></h1>
-    <img th:src="@{'/images/card' + ${card.id % 3 + 1} + '.jpg'}" alt="Card image" width="200">
+    <img th:src="@{/card/{id}/image(id=${card.id})}" alt="Card image" width="200">
     <dl class="card-description">
         <dt>Autore:</dt>
         <dd th:text="${card.author}"></dd>
