@@ -43,8 +43,11 @@ public class CardController {
     }
 
     @PostMapping("/card/new")
-    public String createCard(@ModelAttribute Card card, @RequestParam("file") MultipartFile file) throws IOException {
-        card.setAttachment(file.getBytes());
+    public String createCard(@ModelAttribute Card card, @RequestParam("image") MultipartFile file) throws IOException {
+        if(!file.isEmpty()) {
+            card.setAttachment(file.getBytes());
+        }
+
         cardService.saveCard(card);
         return "redirect:/";
     }

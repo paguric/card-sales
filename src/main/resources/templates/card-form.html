@@ -55,7 +55,7 @@
         <textarea id="description" th:field="*{description}" rows="5" cols="50" required></textarea>
 
         <label for="image"> Carica Immagine:</label>
-        <input type="file" id="image" th:field="*{attachment}" required>
+        <input type="file" id="image" accept="image/*" name="image" required>
 
         <input type="submit" th:value="${card.id} ? 'Aggiorna Carta' : 'Crea Carta'">
     </form>
