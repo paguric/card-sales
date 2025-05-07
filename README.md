@@ -27,9 +27,40 @@ public class Application {
 L'architettura MVC si genera a partire dalla cartella ```src/main/java/ch/supsi/web/cardgames``` creando i rispettivi package (model, view, controller, service, ...).
 
 #### Model
+@Getter @Setter @NoArgsConstructor @ToString
+public class Card {
+    private String name;
+    private String surname;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
+    private String author;
+    private CardCondition condition;
+}
+
+**Nota:** nel caso dell'enum, nell'html bisogna impostare il value esattamente come i campi dell'enum, ad esempio ```<option value="NEAR_MINT">Near Mint</option>```.
 
 #### View
+Nella PP4 non viene fatto uso di view. Le pagine vengono create come ```ResponseEntity<String>``` in ```MainController.java```.
 
 #### Controller
+```
+@RestController
+public class MainController {
+    private final MainService mainService = new MainService();
+    private final CardService cardService = new CardService();
+
+    @GetMapping("/")
+    public ResponseEntity<String> index() {
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_HTML)
+                .body(this.mainService.getAndPopulateHTMLHomePage(cardService.getCards()));
+    }
+    ...
+}
+```
+
+```MainController.java``` si occupa di definire gli endpoint tramite annotazioni (```@GetMapping```, ```@PostMapping```, ecc.).
+Senza *Thymeleaf*, siamo costretti a restituire l'intero testo "grezzo" della pagina HTML che vogliamo mostrare, opportunamente modificato.
 
 #### Service
+Si occupa di gestire le carte, sostituendo momentaneamente l'accesso al database.
