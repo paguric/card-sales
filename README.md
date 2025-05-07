@@ -70,6 +70,13 @@ Con *Thymeleaf* possiamo mappare il nome delle *view* al tipo di ritorno dei met
 In questo modo, *Thymeleaf* compilerà in automatico i campi e restituirà la pagina HTML corrispondente.
 **Nota:** la view non è altro che la pagina HTML salvata nelle risorse.
 **Nota 2:** ricordati di aggiungere `<html xmlns:th="http://www.thymeleaf.org">` dopo `<!DOCTYPE HTML>` nelle view che usano *Thymeleaf*!
+**Nota 3:** ricordati di importare la seguente dependency; ha risolto il problema del Cannot resolve MVC "view":
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
 
 ### PathVariable
 ```
