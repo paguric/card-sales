@@ -69,6 +69,7 @@ Si occupa di gestire le carte, sostituendo momentaneamente l'accesso al database
 Con *Thymeleaf* possiamo mappare il nome delle *view* al tipo di ritorno dei metodi-endpoint nei *controller*. Basta che il *controller* faccia il return del nome della view in una stringa (in minuscolo).
 In questo modo, *Thymeleaf* compilerà in automatico i campi e restituirà la pagina HTML corrispondente.
 **Nota:** la view non è altro che la pagina HTML salvata nelle risorse.
+**Nota 2:** ricordati di aggiungere `<html xmlns:th="http://www.thymeleaf.org">` dopo `<!DOCTYPE HTML>` nelle view che usano *Thymeleaf*!
 
 ### PathVariable
 ```
@@ -122,10 +123,12 @@ public String put(@PathVariable int id, @ModelAttribute("person") Person person)
         - `<img th:alt="${info}">`
         - `<p th:title="${product.title}" />`
 - th:each repeats the tag as many times as there are elements in the array or list returned by the expression:
-    - ```<tr th:each="book : ${books}">
-        <td th:text="${book.id}">ID</td>
-        <td th:text="${book.title}">Title</td>
-    </tr>```
+```
+<tr th:each="book : ${books}">
+    <td th:text="${book.id}">ID</td>
+    <td th:text="${book.title}">Title</td>
+</tr>
+```
 - All expressions that start with @{} are called link expressions and are used to create URLs and are very useful because they can add the context in which the application is (th:href, th:src, th:action).
     - Such an expression: `<a th:href="@{/order/list}">...</a>` would be converted to `<a href="/myapplication/order/list">...</a>`
     - Link expression also works perfectly for src (in the img tag for example) or action (in forms) attributes.
@@ -133,10 +136,12 @@ public String put(@PathVariable int id, @ModelAttribute("person") Person person)
 - Using th:if it is possible to place a condition on the display of a tag.
     - In this case only if the user is an administrator the first div will be displayed and only if variable.something is equal to null will the second div be displayed: `<div th:if="${user.isAdmin()}"> ... <div th:if="${variable.something} == null"> ...`
 - The th:object attribute makes it easy to access the fields of an object in a given context.
-    - ```<form th:object="${person.address}">
-        <input name="line1" th:value="*{line1}">
-        <input name="country" th:value="*{country}">
-    </form>```
+```
+<form th:object="${person.address}">
+    <input name="line1" th:value="*{line1}">
+    <input name="country" th:value="*{country}">
+</form>
+```
 - To add an input to a form: `<input type="text" th:field="*{firstname}" />`
 - Thymeleaf offers a set of utility objects that can help us with common and recurring tasks. For example:
     - `<p th:text="${#dates.format(date, 'dd-MM-yyyy HH:mm')}"></p>`
@@ -146,5 +151,3 @@ public String put(@PathVariable int id, @ModelAttribute("person") Person person)
     - `<p th:text="${#strings.replace(name,'las','ler')}"></p>`
     - `<span th:text="${#lists.size(prod.comments)}">2</span>`
     - `<p th:if="${not #lists.isEmpty(prod.comments)}">comments</p>`
-
-    
