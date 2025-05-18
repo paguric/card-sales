@@ -158,3 +158,40 @@ public String put(@PathVariable int id, @ModelAttribute("person") Person person)
     - `<p th:text="${#strings.replace(name,'las','ler')}"></p>`
     - `<span th:text="${#lists.size(prod.comments)}">2</span>`
     - `<p th:if="${not #lists.isEmpty(prod.comments)}">comments</p>`
+
+## PP6 - Bootstrap
+Per usare Bootsrap, aggiungi `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">`in cima all'HTML della pagina.
+
+### Thymeleaf template layout
+*Thymeleaf* permette di riutilizzare pezzi di HTML in più pagine con i **template fragment**.
+Per definire un fragment (ovvero un pezzo di codice che verrà riutilizzato):
+```
+<div th:fragment="copy">
+    &copy; 2018
+</div>
+```
+Per riutilizzare un fragment, bisogna aggiungere ad un tag una *fragment expression ~({.....})*:
+```
+<body>
+    <div th:insert="~{footer :: copy}"></div>
+</body>
+```
+Oppure, se l'espressione non è complessa, si può sostituire con *FILE_NAME_THAT_CONTAINS_FRAGMENT :: FRAGMENT_NAME*
+```
+<body>
+    <div th:insert="footer :: copy"></div>
+</body>
+```
+Al posto di *insert* si può utilizzare *replace*. Il secondo comando sostituisce il tag dove viene utilizzato con il fragment specificato, mentre *insert* aggiunge il fragment all'interno del tag.
+
+Si possono aggiunge parametri ad un fragment in questo modo:
+```
+<div th:fragment="frag (var1, var2)">
+    <p th:text="${var1} + ' - ' + ${var2}">...</p>
+</div>
+```
+E si possono richiamare in due modi diversi:
+```
+<div th:replace="::frag (${value1},${value2})">...</div>.
+<div th:replace="::frag (var1=${value1},var2=${value2})">...</div>
+```
