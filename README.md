@@ -197,5 +197,14 @@ E si possono richiamare in due modi diversi:
 ```
 
 ### Bootstrap
-#### (Flex)[https://getbootstrap.com/docs/5.3/utilities/flex/]
-d-flex flex-column justify-content-center
+#### [Flex](https://getbootstrap.com/docs/5.3/utilities/flex/)
+- d-flex: imposta il *flexbox*
+- flex-column: imposta una direzione verticale
+- justify-content-center: cambia l'allineamento dei componenti all'interno del *flexbox*
+
+#### [Spacing](https://getbootstrap.com/docs/5.3/utilities/spacing/)
+- m: per classi che usano *margin* (lo spazio fuori dal bordo di un elemento)
+- p: per classi che usano *padding* (lo spazio di un elemento all'interno bordo)
+- x/y: per impostare un *margin* / *padding* orizzontale o verticale
+- 0/1/2/...: imposta il valore da applicare
+**esempi:** `px-2`, `p-3`
