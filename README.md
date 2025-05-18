@@ -208,3 +208,25 @@ E si possono richiamare in due modi diversi:
 - x/y: per impostare un *margin* / *padding* orizzontale o verticale
 - 0/1/2/...: imposta il valore da applicare
 **esempi:** `px-2`, `p-3`
+
+#### [Navbar](https://getbootstrap.com/docs/5.3/components/navbar/)
+- navbar: da usare come classe per il tag *nav*
+- navbar-nav: // per il tag *ul*
+- nav-item: // per gli elementi *li*
+- nav-link (active): // per il tag *a*, all'interno degli elementi *li*. *Active* è opzionale, cambia lo stile dell'elemento3.
+**esempio 1:**
+```
+<nav class="navbar navbar-expand-lg  bg-body-tertiary">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/card/new}">Post Announcement</a>
+```
+In realtà, non c'è nemmeno bisogno del tag *nav*.
+**esempio 2:**
+```
+<div class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/card/new}">Post Announcement</a>
+```
+
