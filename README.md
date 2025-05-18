@@ -195,3 +195,7 @@ E si possono richiamare in due modi diversi:
 <div th:replace="::frag (${value1},${value2})">...</div>.
 <div th:replace="::frag (var1=${value1},var2=${value2})">...</div>
 ```
+
+### Bootstrap
+#### (Flex)[https://getbootstrap.com/docs/5.3/utilities/flex/]
+d-flex flex-column justify-content-center
