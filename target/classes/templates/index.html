@@ -1,64 +1,100 @@
+<!-- TODO add responsiveness -->
+
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/images/icon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
-    <title>Home</title>
-</head>
-<body>
-<header>
-    <a href="/">
-        <img src="/images/logo.png" alt="Card Sales" width="100" height="100">
-    </a>
-    <h1>Card Sales</h1>
-</header>
+    <head th:replace="~{ base :: common_header(~{::title},~{}) }">
 
-<nav>
-    <ul>
-        <li><a href="/card/new">Post Announcement</a></li>
-        <li><a href="/register">User Registration</a></li>
-        <li><a href="/card/1">Carta 1</a></li>
-        <li><a href="/card/2">Carta 2</a></li>
-        <li><a href="/card/3">Carta 3</a></li>
-    </ul>
-</nav>
+        <title>Home</title>
 
-<div class="container">
-    <main>
-        <h2>Latest sales</h2>
-        <div class="cards-container">
-            <div th:each="card : ${cards}" class="card">
-                <h3 class="card-title" th:text="${card.name}"></h3>
-                <div class="card-content">
-                    <p><strong>Descrizione:</strong> <span th:text="${card.description}"></span></p>
-                    <p><strong>Autore:</strong> <span th:text="${card.author}"></span></p>
-                    <p><strong>Data:</strong> <span th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></span></p>
-                    <p><strong>Condizione:</strong> <span th:text="${card.condition}"></span></p>
-                    <p><strong>Tipo:</strong> <span th:text="${card.cardType}"></span></p>
-                    <a th:href="@{/card/{id}(id=${card.id})}">Dettagli</a>
-                    <a th:href="@{/card/{id}/edit(id=${card.id})}">Modifica</a>
-                    <a th:href="@{/card/{id}/delete(id=${card.id})}" onclick="return confirm('Sei sicuro di voler eliminare questa carta?')">Elimina</a>
+        <!-- Additional links go here -->
+        <!-- If links are added, change ~{} to ~{::link} above in th:replace -->
+
+    </head>
+    <body>
+
+        <!-- Header -->
+        <section class="pt-5 text-center" th:fragment="header">
+            <div class="container border-bottom">
+                <div class="d-sm-flex align-items-center justify-content-center">
+                    <a class="link-body-emphasis text-decoration-none py-4 px-3" th:href="@{/}">
+                        <h1> Card Sales </h1>
+                    </a>
+                    <img src="/images/icon.png" width="75" height="75" alt="Card Sales">
+
                 </div>
             </div>
-            <div th:if="${cards.isEmpty()}">
-                <p>Nessuna carta disponibile.</p>
+        </section>
+
+        <!-- Navbar -->
+        <section th:fragment="navbar">
+            <div class="d-flex justify-content-center pt-4 pb-5">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/card/new}">Post Announcement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/register}">User Registration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/card/1">Carta 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/card/2">Carta 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/card/3">Carta 3</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <aside>
-        <h3>Side bar (latest sales / news)</h3>
-        <ul>
-            <li th:each="card : ${cards}" th:text="${card.name}"></li>
-        </ul>
-    </aside>
-</div>
+        <!-- Main section -->
+        <main class="container px-5 pb-5">
+            <section class="d-flex flex-row">
 
-<footer>
-    <h6>Lapo card shop - Copyleft CC-by 2025 by Lapo</h6>
-</footer>
-</body>
+                <!-- Latest sales -->
+                <div class="flex-grow-1">
+                    <h2>Latest sales</h2>
+                    <div>
+                        <div th:each="card : ${cards}" class="card my-4 p-4">
+                            <h3 th:text="${card.name}"></h3>
+                            <div>
+                                <p><strong>Descrizione:</strong> <span th:text="${card.description}"></span></p>
+                                <p><strong>Autore:</strong> <span th:text="${card.author}"></span></p>
+                                <p><strong>Data:</strong> <span th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></span></p>
+                                <p><strong>Condizione:</strong> <span th:text="${card.condition}"></span></p>
+                                <p><strong>Tipo:</strong> <span th:text="${card.cardType}"></span></p>
+                                <a th:href="@{/card/{id}(id=${card.id})}">Dettagli</a>
+                                <a th:href="@{/card/{id}/edit(id=${card.id})}">Modifica</a>
+                                <a th:href="@{/card/{id}/delete(id=${card.id})}"
+                                   onclick="return confirm('Sei sicuro di voler eliminare questa carta?')">Elimina</a>
+                            </div>
+                        </div>
+                        <div th:if="${cards.isEmpty()}">
+                            <p>Nessuna carta disponibile.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side bar -->
+                <aside class="px-5">
+                    <h2>Side bar</h2>
+                    <ul th:each="card : ${cards}">
+                        <li>
+                            <p> [NEW] <span th:text="${card.name}"></span> </p>
+                        </li>
+                    </ul>
+                </aside>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer mt-auto py-3 bg-body-tertiary" th:fragment="footer">
+            <div class="d-flex justify-content-center">
+                <span class="text-body-secondary my-3">Lapo card shop - Copyleft CC-by 2025 by Lapo</span>
+            </div>
+        </footer>
+
+    </body>
 </html>

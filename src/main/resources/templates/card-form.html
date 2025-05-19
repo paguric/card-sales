@@ -1,68 +1,53 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/images/icon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/form.css">
-    <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
-    <title th:text="${card.id} ? 'Modifica Carta' : 'Nuova Carta'"></title>
-</head>
-<body>
-<header>
-    <a href="/">
-        <img src="/images/logo.png" alt="Card Sales" width="100" height="100">
-    </a>
-    <h1>Card Sales</h1>
-</header>
+    <head th:replace="~{ base :: common_header(~{::title},~{::link}) }">
 
-<nav>
-    <ul>
-        <li><a href="/card/new">Post Announcement</a></li>
-        <li><a href="/register">User Registration</a></li>
-        <li><a href="/card/1">Carta 1</a></li>
-        <li><a href="/card/2">Carta 2</a></li>
-        <li><a href="/card/3">Carta 3</a></li>
-    </ul>
-</nav>
+        <title th:text="${card.id} ? 'Modifica Carta' : 'Nuova Carta'"></title>
 
-<main>
-    <h1 th:text="${card.id} ? 'Modifica Carta' : 'Crea Nuova Carta'"></h1>
-    <form th:action="${card.id} ? @{/card/{id}/edit(id=${card.id})} : @{/card/new}" th:object="${card}" method="post" enctype="multipart/form-data">
-        <label for="name">Nome Carta:</label>
-        <input type="text" id="name" th:field="*{name}" required>
+        <link rel="stylesheet" href="/css/form.css">
 
-        <label for="author">Autore Annuncio:</label>
-        <input type="text" id="author" th:field="*{author}" required>
+    </head>
+    <body class="container-fluid">
 
-        <label for="date">Data Annuncio:</label>
-        <input type="date" id="date" th:field="*{date}" required>
+        <!-- Header -->
+        <section th:replace="~{index :: header}"> </section>
 
-        <label for="condition">Condizione Carta:</label>
-        <select id="condition" th:field="*{condition}" required>
-            <option th:each="cond : ${T(ch.supsi.web.cardgames.model.CardCondition).values()}"
-                    th:value="${cond}" th:text="${cond}"></option>
-        </select>
+        <nav th:replace="~{index :: navbar}"> </nav>
 
-        <label for="cardType">Tipo Carta:</label>
-        <select id="cardType" th:field="*{cardType}" required>
-            <option th:each="type : ${T(ch.supsi.web.cardgames.model.CardType).values()}"
-                    th:value="${type}" th:text="${type}"></option>
-        </select>
+        <main>
+            <h1 th:text="${card.id} ? 'Modifica Carta' : 'Crea Nuova Carta'"></h1>
+            <form th:action="${card.id} ? @{/card/{id}/edit(id=${card.id})} : @{/card/new}" th:object="${card}" method="post" enctype="multipart/form-data">
+                <label for="name">Nome Carta:</label>
+                <input type="text" id="name" th:field="*{name}" required>
 
-        <label for="description">Descrizione Annuncio:</label>
-        <textarea id="description" th:field="*{description}" rows="5" cols="50" required></textarea>
+                <label for="author">Autore Annuncio:</label>
+                <input type="text" id="author" th:field="*{author}" required>
 
-        <label for="image"> Carica Immagine:</label>
-        <input type="file" id="image" accept="image/*" name="image" required>
+                <label for="date">Data Annuncio:</label>
+                <input type="date" id="date" th:field="*{date}" required>
 
-        <input type="submit" th:value="${card.id} ? 'Aggiorna Carta' : 'Crea Carta'">
-    </form>
-</main>
+                <label for="condition">Condizione Carta:</label>
+                <select id="condition" th:field="*{condition}" required>
+                    <option th:each="cond : ${T(ch.supsi.web.cardgames.model.CardCondition).values()}"
+                            th:value="${cond}" th:text="${cond}"></option>
+                </select>
 
-<footer>
-    <h6>Lapo card shop - Copyleft CC-by 2025 by Lapo</h6>
-</footer>
-</body>
+                <label for="cardType">Tipo Carta:</label>
+                <select id="cardType" th:field="*{cardType}" required>
+                    <option th:each="type : ${T(ch.supsi.web.cardgames.model.CardType).values()}"
+                            th:value="${type}" th:text="${type}"></option>
+                </select>
+
+                <label for="description">Descrizione Annuncio:</label>
+                <textarea id="description" th:field="*{description}" rows="5" cols="50" required></textarea>
+
+                <label for="image"> Carica Immagine:</label>
+                <input type="file" id="image" accept="image/*" name="image" required>
+
+                <input type="submit" th:value="${card.id} ? 'Aggiorna Carta' : 'Crea Carta'">
+            </form>
+        </main>
+
+        <footer th:replace="~{index :: footer}"> </footer>
+    </body>
 </html>
