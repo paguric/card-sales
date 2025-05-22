@@ -230,3 +230,6 @@ In realtà, non c'è nemmeno bisogno del tag *nav*.
             <a class="nav-link" th:href="@{/card/new}">Post Announcement</a>
 ```
 
+## PP7 - Spring Data
+Per connetterti al db: apri *Docker desktop* con `systemctl --user enable docker-desktop`, attiva il container (mysql), vai nella tab *exec* del container e manda `mysql -u root -p`.
+
