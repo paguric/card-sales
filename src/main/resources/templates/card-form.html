@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{ base :: common_header(~{::title},~{::link}) }">
+    <head th:replace="~{base :: common_header(~{::title},~{::link})}">
 
         <title th:text="${card.id} ? 'Modifica Carta' : 'Nuova Carta'"></title>
 
@@ -12,40 +12,49 @@
         <!-- Header -->
         <section th:replace="~{index :: header}"> </section>
 
+        <!-- Navbar -->
         <nav th:replace="~{index :: navbar}"> </nav>
 
-        <main>
-            <h1 th:text="${card.id} ? 'Modifica Carta' : 'Crea Nuova Carta'"></h1>
-            <form th:action="${card.id} ? @{/card/{id}/edit(id=${card.id})} : @{/card/new}" th:object="${card}" method="post" enctype="multipart/form-data">
-                <label for="name">Nome Carta:</label>
-                <input type="text" id="name" th:field="*{name}" required>
+        <!-- Main section -->
+        <main class="container mh-100 px-5 pb-5">
+            <section class="d-flex flex-row">
 
-                <label for="author">Autore Annuncio:</label>
-                <input type="text" id="author" th:field="*{author}" required>
+                <!-- Input form -->
+                <div class="flex-grow-1">
+                    <h2 th:text="${card.id} ? 'Modifica Carta' : 'Crea Nuova Carta'"></h2>
+                    <form class="card my-4 p-4" th:action="${card.id} ? @{/card/{id}/edit(id=${card.id})} : @{/card/new}" th:object="${card}" method="post" enctype="multipart/form-data">
+                        <label for="name">Nome Carta:</label>
+                        <input type="text" id="name" th:field="*{name}" required>
 
-                <label for="date">Data Annuncio:</label>
-                <input type="date" id="date" th:field="*{date}" required>
+                        <!-- Author is no longer needed -->
+                        <!-- <label for="author">Autore Annuncio:</label> -->
+                        <!-- <input type="text" id="author" th:field="*{author}" required> -->
 
-                <label for="condition">Condizione Carta:</label>
-                <select id="condition" th:field="*{condition}" required>
-                    <option th:each="cond : ${T(ch.supsi.web.cardgames.model.CardCondition).values()}"
-                            th:value="${cond}" th:text="${cond}"></option>
-                </select>
+                        <label for="date">Data Annuncio:</label>
+                        <input type="date" id="date" th:field="*{date}" required>
 
-                <label for="cardType">Tipo Carta:</label>
-                <select id="cardType" th:field="*{cardType}" required>
-                    <option th:each="type : ${T(ch.supsi.web.cardgames.model.CardType).values()}"
-                            th:value="${type}" th:text="${type}"></option>
-                </select>
+                        <label for="condition">Condizione Carta:</label>
+                        <select id="condition" th:field="*{condition}" required>
+                            <option th:each="cond : ${cardConditions}"
+                                    th:value="${cond}" th:text="${cond}"></option>
+                        </select>
 
-                <label for="description">Descrizione Annuncio:</label>
-                <textarea id="description" th:field="*{description}" rows="5" cols="50" required></textarea>
+                        <label for="cardType">Tipo Carta:</label>
+                        <select id="cardType" th:field="*{cardType}" required>
+                            <option th:each="type : ${cardTypes}"
+                                    th:value="${type}" th:text="${type}"></option>
+                        </select>
 
-                <label for="image"> Carica Immagine:</label>
-                <input type="file" id="image" accept="image/*" name="image" required>
+                        <label for="description">Descrizione Annuncio:</label>
+                        <textarea id="description" th:field="*{description}" rows="5" cols="50" required></textarea>
 
-                <input type="submit" th:value="${card.id} ? 'Aggiorna Carta' : 'Crea Carta'">
-            </form>
+                        <label for="image"> Carica Immagine:</label>
+                        <input type="file" id="image" accept="image/*" name="image" required>
+
+                        <input type="submit" th:value="${card.id} ? 'Aggiorna Carta' : 'Crea Carta'">
+                    </form>
+                </div>
+            </section>
         </main>
 
         <footer th:replace="~{index :: footer}"> </footer>

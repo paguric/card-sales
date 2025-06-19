@@ -1,7 +1,0 @@
-ch/supsi/web/cardgames/model/CardType.class
-ch/supsi/web/cardgames/model/CardCondition.class
-ch/supsi/web/cardgames/controller/ApiCardController.class
-ch/supsi/web/cardgames/CardgamesApplication.class
-ch/supsi/web/cardgames/model/Card.class
-ch/supsi/web/cardgames/controller/CardController.class
-ch/supsi/web/cardgames/service/CardService.class

@@ -1,52 +1,55 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/card.css">
-    <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
-    <title>Dettaglio Carta</title>
-</head>
-<body>
-<header>
-    <a href="/">
-        <img src="/images/logo.png" alt="Card Sales" width="100" height="100">
-    </a>
-    <h1>Card Sales</h1>
-</header>
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{base :: common_header(~{::title},~{::link})}">
 
-<nav>
-    <ul>
-        <li><a href="/card/new">Post Announcement</a></li>
-        <li><a href="/register">User Registration</a></li>
-        <li><a href="/card/1">Carta 1</a></li>
-        <li><a href="/card/2">Carta 2</a></li>
-        <li><a href="/card/3">Carta 3</a></li>
-    </ul>
-</nav>
+        <title>Card details</title>
 
-<main>
-    <h1 th:text="${card.name}"></h1>
-    <img th:src="@{/card/{id}/image(id=${card.id})}" alt="Card image" width="200">
-    <dl class="card-description">
-        <dt>Autore:</dt>
-        <dd th:text="${card.author}"></dd>
-        <dt>Data:</dt>
-        <dd th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></dd>
-        <dt>Condizione:</dt>
-        <dd th:text="${card.condition}"></dd>
-        <dt>Tipo:</dt>
-        <dd th:text="${card.cardType}"></dd>
-        <dt>Descrizione:</dt>
-        <dd th:text="${card.description}"></dd>
-    </dl>
-    <a th:href="@{/card/{id}/edit(id=${card.id})}">Modifica</a>
-    <a th:href="@{/card/{id}/delete(id=${card.id})}" onclick="return confirm('Sei sicuro di voler eliminare questa carta?')">Elimina</a>
-</main>
+        <link rel="stylesheet" href="/css/card.css">
 
-<footer>
-    <h6>Lapo card shop - Copyleft CC-by 2025 by Lapo</h6>
-</footer>
-</body>
+    </head>
+    <body>
+        <!-- Header -->
+        <header th:replace="~{index :: header}"> </header>
+
+        <!-- Navbar -->
+        <nav th:replace="~{index :: navbar}"> </nav>
+
+        <!-- Main section -->
+        <main class="container mh-100 px-5 pb-5">
+            <section class="d-flex flex-col">
+
+                <!-- Card title & image -->
+                <div class="col">
+                    <h1 th:text="${card.name}"></h1>
+                    <img th:src="@{/card/{id}/image(id=${card.id})}" alt="Card image" width="200">
+                </div>
+
+                <!-- Description & buttons -->
+                <div class="col">
+                    <dl class="card-description">
+                        <dt>Autore:</dt>
+                        <dd th:text="${card.author}"></dd>
+                        <dt>Data:</dt>
+                        <dd th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></dd>
+                        <dt>Condizione:</dt>
+                        <dd th:text="${card.condition}"></dd>
+                        <dt>Tipo:</dt>
+                        <dd th:text="${card.cardType}"></dd>
+                        <dt>Descrizione:</dt>
+                        <dd th:text="${card.description}"></dd>
+                    </dl>
+
+                    <!-- Commented line also allows owner to see the edit & delete buttons -->
+                    <!-- <div th:if="${user != null and (user.username == card.author or user.role == adminRole)}">-->
+                    <div th:if="${user != null and user.role == adminRole}">
+                        <a class="btn btn-primary me-2" th:href="@{/card/{id}/edit(id=${card.id})}">Edit</a>
+                        <a class="btn btn-danger" th:href="@{/card/{id}/delete(id=${card.id})}">Delete</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer th:replace="~{index :: footer}"> </footer>
+    </body>
 </html>

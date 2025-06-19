@@ -1,7 +1,9 @@
 package ch.supsi.web.cardgames.service;
 
 import ch.supsi.web.cardgames.model.Card;
+import ch.supsi.web.cardgames.repository.CardRepository;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,27 +14,22 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class CardService {
-    @Getter
-    private final List<Card> cards = new ArrayList<>();
-    private final AtomicLong idGenerator = new AtomicLong(1);
+    @Autowired
+    private CardRepository repository;
 
-    public Optional<Card> getCardById(Long id) {
-        return cards.stream()
-                .filter(card -> card.getId().equals(id))
-                .findFirst();
+    public Card getCardById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     public Card saveCard(Card card) {
-        if (card.getId() == null) {
-            card.setId(idGenerator.getAndIncrement());
-        } else {
-            cards.removeIf(c -> c.getId().equals(card.getId()));
-        }
-        cards.add(card);
-        return card;
+        return repository.save(card);
     }
 
     public void deleteCard(Long id) {
-        cards.removeIf(card -> card.getId().equals(id));
+        repository.deleteById(id);
+    }
+
+    public List<Card> getCards() {
+        return repository.findAll();
     }
 }

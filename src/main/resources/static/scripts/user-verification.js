@@ -10,10 +10,10 @@ let validConfirmPasswordInput = false;
 const form = document.querySelector("form");
 form.addEventListener("input", validateForm);
 
-const firstNameInput = document.getElementById("firstName");
+const firstNameInput = document.getElementById("name");
 firstNameInput.addEventListener("input", validateFirstName);
 
-const lastNameInput = document.getElementById("lastName");
+const lastNameInput = document.getElementById("surname");
 lastNameInput.addEventListener("input", validateLastName);
 
 const usernameInput = document.getElementById("username");
@@ -142,13 +142,17 @@ function validateForm() {
 
     if (validFirstNameInput && validLastNameInput && validUsernameInput && validPasswordInput && validConfirmPasswordInput) {
         validForm = true;
+
         // Create button
         const confirmButton = document.createElement("button");
         confirmButton.textContent = "Create Account";
         confirmButton.id = "confirmButton";
+        confirmButton.type = "submit";
         confirmButton.addEventListener("click", () => {
-            alert("Account creation in progress.");
-            window.location.href = "/";
+            // User save is handled by AuthController
+
+            // AuthController already redirects to "/"
+            //window.location.href = "/";
         });
         form.appendChild(confirmButton);
     } else {

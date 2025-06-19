@@ -5,5 +5,5 @@ public enum CardType {
     MAGIC_THE_GATHERING,
     YU_GI_OH,
     DRAGON_BALL_Z,
-    OTHER
+    OTHER;
 }

@@ -1,8 +1,8 @@
 <!-- TODO add responsiveness -->
 
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{ base :: common_header(~{::title},~{}) }">
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{base :: common_header(~{::title},~{})}">
 
         <title>Home</title>
 
@@ -13,17 +13,31 @@
     <body>
 
         <!-- Header -->
-        <section class="pt-5 text-center" th:fragment="header">
-            <div class="container border-bottom">
-                <div class="d-sm-flex align-items-center justify-content-center">
+        <header class="py-3 px-5 mb-3 border-bottom" th:fragment="header">
+            <div class="container-fluid">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <!-- Logo -->
                     <a class="link-body-emphasis text-decoration-none py-4 px-3" th:href="@{/}">
                         <h1> Card Sales </h1>
                     </a>
-                    <img src="/images/icon.png" width="75" height="75" alt="Card Sales">
+                    <img class="me-lg-auto" src="/images/icon.png" width="75" height="75" alt="Card Sales">
+
+                    <!-- User picture & username -->
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/images/user-avatar.png" alt="user" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" href="/login">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
 
                 </div>
             </div>
-        </section>
+        </header>
 
         <!-- Navbar -->
         <section th:fragment="navbar">
@@ -49,7 +63,7 @@
         </section>
 
         <!-- Main section -->
-        <main class="container px-5 pb-5">
+        <main class="container mh-100 px-5 pb-5">
             <section class="d-flex flex-row">
 
                 <!-- Latest sales -->
@@ -57,41 +71,44 @@
                     <h2>Latest sales</h2>
                     <div>
                         <div th:each="card : ${cards}" class="card my-4 p-4">
-                            <h3 th:text="${card.name}"></h3>
+                            <h3>
+                                <a th:href="@{/card/{id}(id=${card.id})}" th:text="${card.name}">Card Name</a>
+                            </h3>
                             <div>
-                                <p><strong>Descrizione:</strong> <span th:text="${card.description}"></span></p>
-                                <p><strong>Autore:</strong> <span th:text="${card.author}"></span></p>
-                                <p><strong>Data:</strong> <span th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></span></p>
-                                <p><strong>Condizione:</strong> <span th:text="${card.condition}"></span></p>
-                                <p><strong>Tipo:</strong> <span th:text="${card.cardType}"></span></p>
-                                <a th:href="@{/card/{id}(id=${card.id})}">Dettagli</a>
-                                <a th:href="@{/card/{id}/edit(id=${card.id})}">Modifica</a>
-                                <a th:href="@{/card/{id}/delete(id=${card.id})}"
-                                   onclick="return confirm('Sei sicuro di voler eliminare questa carta?')">Elimina</a>
+                                <p><strong>Description:</strong> <span th:text="${card.description}"></span></p>
+                                <p><strong>Author:</strong> <span th:text="${card.author}"></span></p>
+                                <p><strong>Date:</strong> <span th:text="${#dates.format(card.date, 'dd/MM/yyyy')}"></span></p>
+                                <p><strong>Condition:</strong> <span th:text="${card.condition}"></span></p>
+                                <p><strong>Type:</strong> <span th:text="${card.cardType}"></span></p>
+                                <!-- <a th:href="@{/card/{id}(id=${card.id})}">Details</a> -->
+                                <a sec:authorize="hasRole('ADMIN')" th:href="@{/card/{id}/edit(id=${card.id})}">Edit</a>
+                                <a sec:authorize="hasRole('ADMIN')" th:href="@{/card/{id}/delete(id=${card.id})}"
+                                   onclick="return confirm('Are you shure you want to delete this card?')">Delete
+                                </a>
                             </div>
                         </div>
                         <div th:if="${cards.isEmpty()}">
-                            <p>Nessuna carta disponibile.</p>
+                            <p>No cards available yet.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Side bar -->
                 <aside class="px-5">
-                    <h2>Side bar</h2>
+                    <h2> Recently added </h2>
                     <ul th:each="card : ${cards}">
                         <li>
                             <p> [NEW] <span th:text="${card.name}"></span> </p>
                         </li>
                     </ul>
                 </aside>
-                </div>
             </section>
         </main>
 
         <!-- Footer -->
-        <footer class="footer mt-auto py-3 bg-body-tertiary" th:fragment="footer">
-            <div class="d-flex justify-content-center">
+        <footer class="footer mt-auto py-3 bg-body-tertiary fixed-bottom" th:fragment="footer">
+<!--            <div class="d-flex justify-content-center">-->
+            <div class="container">
                 <span class="text-body-secondary my-3">Lapo card shop - Copyleft CC-by 2025 by Lapo</span>
             </div>
         </footer>

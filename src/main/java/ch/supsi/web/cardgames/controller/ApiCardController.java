@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApiCardController {
 
+    @Autowired
     private final CardService cardService;
 
     @Autowired
@@ -25,35 +26,13 @@ public class ApiCardController {
     }
 
     @GetMapping("/card/{id}")
-    public ResponseEntity<Card> getCardById(@PathVariable Long id) {
-        return cardService.getCardById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Card getCardById(@PathVariable Long id) {
+        return cardService.getCardById(id);
     }
 
     @PostMapping("/card")
     public ResponseEntity<Card> createCard(@RequestBody Card card) {
         Card savedCard = cardService.saveCard(card);
         return ResponseEntity.ok(savedCard);
-    }
-
-    @PutMapping("/card/{id}")
-    public ResponseEntity<Card> updateCard(@PathVariable Long id, @RequestBody Card card) {
-        return cardService.getCardById(id)
-                .map(existingCard -> {
-                    card.setId(id);
-                    Card updatedCard = cardService.saveCard(card);
-                    return ResponseEntity.ok(updatedCard);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/card/{id}")
-    public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
-        if (cardService.getCardById(id).isPresent()) {
-            cardService.deleteCard(id);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
     }
 }

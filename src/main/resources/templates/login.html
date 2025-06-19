@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head th:replace="~{base :: common_header(~{::title},~{})}">
+
+        <title>Login</title>
+
+        <!-- Additional links go here -->
+        <!-- If links are added, change ~{} to ~{::link} above in th:replace -->
+
+    </head>
+    <body>
+        <!-- Header -->
+        <section th:replace="~{index :: header}"> </section>
+
+        <!-- Navbar -->
+        <section th:replace="~{index :: navbar}"> </section>
+
+        <!-- Main Section -->
+        <main class="container pb-5 pb-5r">
+            <h2 class="card-title mb-4">Login</h2>
+            <div class="card">
+                <form class="card-body" th:action="@{/login}" method="post">
+
+                    <!-- Username -->
+                    <div th:replace="~{base :: formInput (id='username', inputType='text', text='Username')}"> </div>
+
+                    <!-- Password -->
+                    <div th:replace="~{base :: formInput (id='password', inputType='password', text='Password')}"> </div>
+
+                    <input type="submit" value="Enter" class="btn btn-primary" />
+
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <section th:replace="~{index :: footer}"> </section>
+    </body>
+</html>

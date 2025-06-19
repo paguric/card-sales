@@ -12,3 +12,9 @@
     <th:block th:replace="${links}" />
 
 </head>
+
+<!-- formInput -->
+<div class="mb-3" th:fragment="formInput(id,inputType,text)">
+    <label th:for="${id}" class="form-label" th:text="${text}"> </label>
+    <input th:type="${inputType}" class="form-control" th:id="${id}" th:name="${id}" required>
+</div>

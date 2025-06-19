@@ -1,56 +1,51 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/form.css">
-    <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet">
-    <title>User Registration</title>
-</head>
-<body>
-<header>
-    <a href="/">
-        <img src="/images/logo.png" alt="Card Sales" width="100" height="100">
-    </a>
-    <h1>Card Sales</h1>
-</header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{ base :: common_header(~{::title},~{}) }">
 
-<nav>
-    <ul>
-        <li><a href="/card/new">Post Announcement</a></li>
-        <li><a href="/register">User Registration</a></li>
-        <li><a href="/card/1">Carta 1</a></li>
-        <li><a href="/card/2">Carta 2</a></li>
-        <li><a href="/card/3">Carta 3</a></li>
-    </ul>
-</nav>
+        <title>Register</title>
 
-<main>
-    <h1>Registrazione Utente</h1>
-    <form id="registrationForm">
-        <label for="firstName">Nome:</label>
-        <input type="text" id="firstName" name="firstName" required>
+        <!-- Additional links go here -->
+        <!-- If links are added, change ~{} to ~{::link} above in th:replace -->
+        <!-- link rel="stylesheet" href="/css/form.css" -->
+    </head>
+    <body>
+        <!-- Header -->
+        <header th:replace="~{index :: header}"> </header>
 
-        <label for="lastName">Cognome:</label>
-        <input type="text" id="lastName" name="lastName" required>
+        <!-- Navbar -->
+        <nav th:replace="~{index :: navbar}"> </nav>
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <!-- Main Section -->
+        <main class="container pb-5 pb-5r">
+            <h2 class="card-title mb-4">Sign up</h2>
+            <div class="card">
+                <form id="registrationForm" class="card-body" th:action="@{/register}" method="post">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+                    <!-- First name -->
+                    <div th:replace="~{base :: formInput (id='name', inputType='text', text='First name')}"> </div>
 
-        <label for="pas
-swordConfirm">Conferma Password:</label>
-        <input type="password" id="passwordConfirm" name="passwordConfirm" required>
-    </form>
-</main>
+                    <!-- Last name -->
+                    <div th:replace="~{base :: formInput (id='surname', inputType='text', text='Last name')}"> </div>
 
-<footer>
-    <h6>Lapo card shop - Copyleft CC-by 2025 by Lapo</h6>
-</footer>
+                    <!-- Userame -->
+                    <div th:replace="~{base :: formInput (id='username', inputType='text', text='Username')}"> </div>
 
-<script src="/scripts/user-verification.js"></script>
-</body>
+                    <!-- Password -->
+                    <div th:replace="~{base :: formInput (id='password', inputType='password', text='Password')}"> </div>
+
+                    <!-- Password confirm -->
+                    <div th:replace="~{base :: formInput (id='passwordConfirm', inputType='password', text='Password confirm')}"> </div>
+
+                    <!-- Button should be made available through JavaScript when form is valid -->
+                    <input type="submit" value="Create Account" class="btn btn-primary">
+
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer th:replace="~{index :: footer}"> </footer>
+
+        <script src="/scripts/user-verification.js"> </script>
+    </body>
 </html>
